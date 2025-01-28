@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tampilkan Gambar Berurutan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      margin: 0px 0;
+      display: block;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    .button {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      background-color: #007bff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+    .button:active {
+      background-color: #003f7f;
+    }
+    #chapter-list {
+      margin-top: 20px;
+    }
+    .chapter-button {
+      display: inline-block;
+      padding: 8px 16px;
+      margin: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+      background-color: #28a745;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .chapter-button:hover {
+      background-color: #218838;
+    }
+    .chapter-button:active {
+      background-color: #1e7e34;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chaos Heavenly Emperor</h1>
+  <div id="image-container">
+    <!-- Semua gambar akan dimuat di sini -->
+  </div>
+  <button class="button" id="next-chapter-button">Chapter Berikutnya</button>
+  <button class="button" id="chapter-list-button">Daftar Chapter</button>
+  <div id="chapter-list" style="display: none;">
+    <!-- Daftar chapter akan ditampilkan di sini -->
+  </div>
+
+  <script>
+    let chapter = 1; // Chapter awal
+    const baseUrl = "https://cdn.itachi.my.id/wp-content/uploads/images/c/chaos-heavenly-emperor/";
+    const maxImages = 30; // Jumlah maksimum gambar per chapter (ubah sesuai kebutuhan)
+    const totalChapters = 0; // Total jumlah chapter, ini bisa diperbarui sesuai dengan jumlah chapter yang ada
+
+    function loadChapter() {
+      const container = document.getElementById("image-container");
+      container.innerHTML = ""; // Hapus semua gambar sebelumnya
+
+      let image = 1; // Mulai dari gambar pertama
+
+      function loadNextImage() {
+        const img = document.createElement("img");
+        img.src = `${baseUrl}chapter-${String(chapter).padStart(2, "0")}/${image}.jpg`;
+        img.alt = `Chapter ${chapter} - Gambar ${image}`;
+        img.onload = () => {
+          container.appendChild(img); // Tambahkan gambar ke container
+          image++; // Lanjut ke gambar berikutnya
+          if (image <= maxImages) {
+            loadNextImage(); // Muat gambar berikutnya
+          }
+        };
+        img.onerror = () => {
+          console.log(`Gambar ${image} tidak ditemukan di chapter ${chapter}.`);
+        };
+      }
+
+      loadNextImage(); // Mulai memuat gambar
+    }
+
+    // Fungsi untuk menampilkan daftar chapter yang terupdate otomatis
+    function updateChapterList() {
+      const chapterList = document.getElementById("chapter-list");
+      chapterList.innerHTML = ""; // Bersihkan daftar sebelumnya
+      chapterList.style.display = "block"; // Tampilkan daftar
+
+      for (let i = 1; i <= totalChapters; i++) {
+        const button = document.createElement("button");
+        button.textContent = `Chapter ${i}`;
+        button.className = "chapter-button";
+        button.addEventListener("click", () => {
+          chapter = i; // Ubah chapter ke yang dipilih
+          loadChapter(); // Muat chapter yang dipilih
+          chapterList.style.display = "none"; // Sembunyikan daftar setelah memilih
+        });
+        chapterList.appendChild(button);
+      }
+    }
+
+    // Event listener untuk tombol "Chapter Berikutnya"
+    document.getElementById("next-chapter-button").addEventListener("click", () => {
+      if (chapter < totalChapters) {
+        chapter++; // Pindah ke chapter berikutnya
+        loadChapter(); // Muat chapter baru
+      }
+    });
+
+    // Event listener untuk tombol "Daftar Chapter"
+    document.getElementById("chapter-list-button").addEventListener("click", updateChapterList);
+
+    // Muat chapter pertama kali
+    loadChapter();
+  </script>
+</body>
+</html>

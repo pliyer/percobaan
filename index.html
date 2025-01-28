@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Utama</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 5px;
+            justify-items: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1 id="welcomeMessage"></h1>
+        <div class="gallery">
+            <a href="CHE.html"><img src="https://ikiru.one/wp-content/uploads/2024/10/chaos-heavenly-emperor-931332-fguvr6qz-789242-4CPf1ahZ.jpg" alt="CHAOS HEAVENLY EMPEROR"></a>
+            <a href="wdg.html"><img src="https://cover.komiku.id/wp-content/uploads/Komik-Wu-Dong-Qian-Kun.png?w=225&quality=60" alt="Wu Dong Qian Kun"></a>
+            <a href="drs.html"><img src="https://ikiru.one/wp-content/uploads/2021/11/dr-stone-261295-XlvNCLqm.webp" alt="Dr. Stone"></a>
+            <a href="semut.html"><img src="https://ikiru.one/wp-content/uploads/2025/01/eodaco0czovf1aqsi0rrj70hgfer4xhs50nv2wa8-776571-cwfPCENb.webp" alt="Komik Semut"></a>
+            <a href="bugking.html"><img src="https://ikiru.one/wp-content/uploads/2025/01/images-20-055257-kVkBYe7R.jpeg" alt="Bug King"></a>
+            <a href="newcareer.html"><img src="https://ikiru.one/wp-content/uploads/2021/10/i-randomly-have-a-new-career-every-week-648591-lymamhOT.jpg" alt="New Career"></a>
+            <a href="iac.html"><img src="https://ikiru.one/wp-content/uploads/2022/01/image_2022-01-03_145924.png" alt="iac"></a>
+        </div>
+        <a href="comments.php">
+            <button>Komentar</button>
+        </a>
+    </div>
+
+    <script>
+        // Mengecek apakah pengguna sudah login atau belum
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const username = localStorage.getItem("username");
+
+        // Jika belum login, arahkan ke halaman login.html
+        if (!isLoggedIn) {
+            window.location.href = "login.html";
+        } else {
+            // Menampilkan pesan selamat datang dengan nama pengguna
+            const welcomeMessage = document.getElementById("welcomeMessage");
+            welcomeMessage.textContent = `Welcome, ${username}!`;
+        }
+    </script>
+</body>
+</html>
